@@ -22,7 +22,9 @@ public class TestContents {
             		break;
             	case "print":
             		queue.printQueue();
+            		System.out.println(); 
             		stack.printStack();
+            		System.out.println();
             		break;
             }
         }

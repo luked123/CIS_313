@@ -1,9 +1,11 @@
+import java.util.Scanner;
 
 public class lab1 {
 	public static void main(String[] args){
 	
 		// Create a Scanner that reads system input
-		
+		Scanner scan = new Scanner(System.in);
+		Queue<E> queue = new Queue();
 		// Loop over the scanner's input
 		// For each line of the input, send it to isPalindrome()
 		// If isPalindrome returns true, print "This is a Palindrome." 
