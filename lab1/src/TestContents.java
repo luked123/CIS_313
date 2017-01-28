@@ -21,10 +21,8 @@ public class TestContents {
             		stack.pop();
             		break;
             	case "print":
-            		queue.printQueue();
-            		System.out.println(); 
+            		queue.printQueue(); 
             		stack.printStack();
-            		System.out.println();
             		break;
             }
         }
