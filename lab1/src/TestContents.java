@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class TestContents {
     public static void main(String[] args){
         Scanner scan = new Scanner(System.in);
-        Queue<Integer> queue = new Queue<Integer>();
+        TwoStackQueue<Integer> queue = new TwoStackQueue<Integer>();
         Stack<Integer> stack = new Stack<Integer>();
         String input;
         String task;

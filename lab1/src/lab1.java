@@ -5,30 +5,33 @@ public class lab1 {
 	
 		// Create a Scanner that reads system input
 		Scanner scan = new Scanner(System.in);
-		Queue<E> queue = new Queue();
-		// Loop over the scanner's input
-		// For each line of the input, send it to isPalindrome()
-		// If isPalindrome returns true, print "This is a Palindrome." 
-		// Otherwise print "Not a Palindrome."
-		
-		// Close the Scanner		
-
+		int lines = scan.nextInt(); 
+		for(int i = 0 ; i < lines; i++){
+			if(isPalindrome(scan.next())){
+				System.out.println("This is a Palindrome.");
+			}
+			else{
+				System.out.println("Not a Palindrome.");
+			}
+		}
+		scan.close();		
 	}
 	
 	public static boolean isPalindrome(String s){
-	
-		// Create a stack and a Queue of chars that represents the passed in string
-		// Hint: While you loop through the given string, push the same char onto your stack
-		//		 that you enqueue into your Queue. This way you can use dequeue to get 
-		//       the string from left to right, but you pop the string from right to left
+		Queue<Character> queue = new Queue<Character>();
+		Stack<Character> stack = new Stack<Character>(); 
 		
-		// Compare your Queue and Stack to see if the input String was a Palindrome or not	
-
-	}
-	
-	public static boolean isPalindromeEC(String s){
-	
-		// Implement if you wish to do the extra credit.
+		for(int i = 0; i < s.length(); i++){
+			char c = s.charAt(i);
+			queue.enqueue(c);
+			stack.push(c);
+		}
 		
+		while(!queue.isEmpty()){
+			if(queue.dequeue().getData() != stack.pop().getData()){
+				return false;
+			} 
+		}
+		return true; 
 	}
 }
