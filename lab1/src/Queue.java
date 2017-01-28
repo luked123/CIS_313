@@ -45,7 +45,7 @@ public class Queue<E> {
 		//prints the queue
 		Node<E> node = this.head; 
 		while(node != null){
-			System.out.printf("%s ", node.getData().toString());
+			System.out.printf("%s\n", node.getData().toString());
 			node = node.getNext(); 
 		}
 	}

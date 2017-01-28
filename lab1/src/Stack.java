@@ -37,7 +37,7 @@ public class Stack<E> {
 	public void printStack(){
 		Node<E> node = this.top; 		
 		while(node != null){
-			System.out.printf("%s ", node.getData().toString());
+			System.out.printf("%s\n", node.getData().toString());
 			node = node.getNext(); 
 		}
 		
