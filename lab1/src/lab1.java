@@ -2,8 +2,8 @@ import java.util.Scanner;
 
 public class lab1 {
 	public static void main(String[] args){
-	
-		// Create a Scanner that reads system input
+		//reads an input to determine how many strings will be incoming
+		//determines if those strings are palindromes
 		Scanner scan = new Scanner(System.in);
 		int lines = scan.nextInt(); 
 		for(int i = 0 ; i < lines; i++){
@@ -18,6 +18,7 @@ public class lab1 {
 	}
 	
 	public static boolean isPalindrome(String s){
+		//returns true if string s is a palindrome
 		Queue<Character> queue = new Queue<Character>();
 		Stack<Character> stack = new Stack<Character>(); 
 		

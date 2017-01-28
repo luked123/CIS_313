@@ -1,10 +1,11 @@
 
 public class Node<E> {
+	//The node class
 	private E data;
 	private Node<E> next;
 	
 	public Node(E c, Node<E> n){
-		//Sets the data field of the node and the next node field
+		//Constructs a node
 		this.data = c; 
 		this.next = n; 
 	}

@@ -2,8 +2,8 @@ import java.util.Scanner;
 
 public class EC {
 		public static void main(String[] args){
-		
-			// Create a Scanner that reads system input
+			//reads an input to determine how many strings will be incoming
+			//determines if those strings are palindromes
 			Scanner scan = new Scanner(System.in);
 			int lines = scan.nextInt(); 
 			for(int i = 0 ; i < lines; i++){
@@ -18,6 +18,7 @@ public class EC {
 		}
 		
 		public static boolean isPalindrome(String s){
+			//returns true if string s is a palindrome
 			TwoStackQueue<Character> queue = new TwoStackQueue<Character>();
 			Stack<Character> stack = new Stack<Character>(); 
 			

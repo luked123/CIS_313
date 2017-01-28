@@ -34,7 +34,7 @@ public class Queue<E> {
 	}
 	
 	public boolean isEmpty(){
-		//check if the queue is empty
+		//returns true if the queue is empty
 		if(this.head == null){
 			return true;
 		}
@@ -42,7 +42,7 @@ public class Queue<E> {
 	}
 	
 	public void printQueue(){
-		//prints the queue
+		//prints the queue with each element in a new line
 		Node<E> node = this.head; 
 		while(node != null){
 			System.out.printf("%s\n", node.getData().toString());

@@ -1,18 +1,22 @@
 
 public class TwoStackQueue<E>{
+	//TwoStackQueue Class
 	Stack<E> stack1;  
 	Stack<E> stack2;  
 	
 	public TwoStackQueue(){
+		//constructs two stacks which will implement a queue
 		this.stack1 = new Stack<E>(); 
 		this.stack2 = new Stack<E>(); 
 	}
 	
 	public void enqueue(E newData){
+		//inserts an element into the queue
 		stack2.push(newData); 
 	}
 	
 	public Node<E> dequeue(){
+		//removes an element from the queue
 		if(!stack1.isEmpty()){
 			return stack1.pop(); 
 		} 
@@ -23,6 +27,7 @@ public class TwoStackQueue<E>{
 	}
 	
 	public boolean isEmpty(){
+		//returns true if queue is empty
 		if(stack1.isEmpty() && stack2.isEmpty()){
 			return true;
 		}
@@ -31,8 +36,7 @@ public class TwoStackQueue<E>{
 	
 	public void printQueue(){
 		Stack<E> temp = new Stack<E>(); 
-		
-		//puts stack2 into a queue form aligned with stack1
+		//puts stack2 into a queue form, aligns with stack1
 		while(!stack2.isEmpty()){
 			temp.push(stack2.pop().getData());
 		}

@@ -16,7 +16,7 @@ public class Stack<E> {
 	}
 	
 	public Node<E> pop(){
-		//
+		//removes an element from the stack
 		if(this.top == null){
 			return null; 
 		}
@@ -27,6 +27,7 @@ public class Stack<E> {
 	}
 	
 	public boolean isEmpty(){
+		//returns true if stack is empty
 		if(this.top == null){
 			return true; 
 		}
@@ -35,6 +36,7 @@ public class Stack<E> {
 	}
 	
 	public void printStack(){
+		//prints the stack with each element on a new line
 		Node<E> node = this.top; 		
 		while(node != null){
 			System.out.printf("%s\n", node.getData().toString());
