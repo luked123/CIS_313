@@ -82,6 +82,7 @@ public class TreeCompare {
 
 	
 	private static boolean compareTree(BST<Integer> tree1, BST<Integer> tree2){
+		//compares the shape of two trees
 	    Node<Integer> node1 = tree1.getRoot(); 
 	    Node<Integer> node2 = tree2.getRoot(); 
 	    
@@ -93,8 +94,12 @@ public class TreeCompare {
 	
 	
 	private static boolean compareNode(Node<Integer> node1, Node<Integer> node2){
+	//compares nodes to see if they have the same structure by comparing children
+		
+		//traverses trees preorder fashion recursively
 		if(node1 != null && node2 != null){
-			if((Right(node1) != Right(node2)) || (Left(node1) != Left(node2))){
+			// if nodes do not have same structure returns false
+			if((Right(node1) != Right(node2)) || (Left(node1) != Left(node2))){   
 				return false;  
 			}
 			if(!(compareNode(node1.getLeftChild(), node2.getLeftChild()))){
@@ -110,10 +115,12 @@ public class TreeCompare {
 		else if((node1 != null) && (node2 == null )){
 			return false; 
 		}
+		//passes all tests and returns true
 		return true; 
 	}
 	
 	private static boolean Right(Node<Integer> node){
+	//checks to see if node has a right child
 		if(node.getRightChild() != null){
 			return true;
 		}
@@ -121,6 +128,7 @@ public class TreeCompare {
 	}
 	
 	private static boolean Left(Node<Integer> node){
+	//checks to see if node has a left child
 		if(node.getLeftChild() != null){
 			return true;
 		}
