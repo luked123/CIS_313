@@ -98,18 +98,17 @@ public class TreeCompare {
 		
 		//traverses trees preorder fashion recursively
 		if(node1 != null && node2 != null){
-			// if nodes do not have same structure returns false
-			if((Right(node1) != Right(node2)) || (Left(node1) != Left(node2))){   
+			if((Right(node1) != Right(node2)) || (Left(node1) != Left(node2))){   // if nodes do not have same structure returns false
 				return false;  
 			}
-			if(!(compareNode(node1.getLeftChild(), node2.getLeftChild()))){
+			if(!(compareNode(node1.getLeftChild(), node2.getLeftChild()))){       // recursive calls for preorder
 				return false; 
 			}
-			if(!(compareNode(node1.getRightChild(), node2.getRightChild()))){
+			if(!(compareNode(node1.getRightChild(), node2.getRightChild()))){    
 				return false; 
 			}
 		}
-		else if((node1 == null) && (node2 != null)){
+		else if((node1 == null) && (node2 != null)){                        
 			return  false; 
 		}
 		else if((node1 != null) && (node2 == null )){
