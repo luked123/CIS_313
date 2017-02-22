@@ -28,10 +28,10 @@ public class lab3 {
     				break;
     			case "isEmpty":
     				if(queue.isEmpty()){
-    					System.out.println("Is Empty");
+    					System.out.println("Empty");
     				}
     				else{
-    					System.out.println("Empty");
+    					System.out.println("Not Empty");
     				}
     				break;
     			case "print":
