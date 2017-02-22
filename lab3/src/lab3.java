@@ -31,7 +31,7 @@ public class lab3 {
     					System.out.println("Is Empty");
     				}
     				else{
-    					System.out.println("Not Empty");
+    					System.out.println("Empty");
     				}
     				break;
     			case "print":
