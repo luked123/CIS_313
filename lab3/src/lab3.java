@@ -7,8 +7,8 @@ public class lab3 {
 		int num = 0; 
 		String array = "";
 		pQueue<Integer> queue = new pQueue<Integer>(lines); 
-		while(scan.hasNextLine()){
-			for(int i = 0; i < lines; i++){
+		for(int i = 0; i < lines; i++){
+			if(scan.hasNextLine()){
 				String string = scan.nextLine();
 				String command[] = string.split(" ");
 				if(command[0].equals("build")){
@@ -54,6 +54,7 @@ public class lab3 {
 				}
 			}
 		}
+
 		scan.close();
 	}
 }
