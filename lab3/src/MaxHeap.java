@@ -8,7 +8,7 @@ public class MaxHeap<E extends Comparable> {
     	//heap constructor
     	this.maxSize = s; 
     	this.length  = 0; 
-    	this.myArray = (E[]) (new Comparable[maxSize]); 
+    	this.myArray = (E[]) (new Comparable[maxSize + 1]); 
     }
 
 	// helper functions
@@ -17,7 +17,7 @@ public class MaxHeap<E extends Comparable> {
     }
 
     public void setArray(E[] newArray){
-    	if (newArray.length > maxSize){
+    	if (newArray.length > maxSize + 1){
     		return;
     	}
     	
