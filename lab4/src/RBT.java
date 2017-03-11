@@ -1,6 +1,6 @@
 public class RBT<E extends Comparable<E>> {
-    private Node<E> root;
-
+    private Node<E> root; 
+    
     public RBT(){
         root = null;
     }
@@ -10,7 +10,14 @@ public class RBT<E extends Comparable<E>> {
     }
 
     public void insert(E data){
-		Node<E> node = new Node<E>(data); 
+		Node<E> node = new Node<E>(data);
+		Node<E> nil  = new Node<E>(null);
+		
+		nil.setColor('b');
+		nil.setParent(node);
+		
+		node.setLeftChild(nil);
+		node.setRightChild(nil);
 		node.setColor('r');
 		
 		// if tree is empty make node into root
@@ -18,35 +25,25 @@ public class RBT<E extends Comparable<E>> {
 			this.root = node; 
 		}
 		else{
-			Node<E> cur = this.root; // at current node
-			// does comparisons to see where node fits in BST
-			while(node.getData().compareTo(cur.getData())!= 0){
-				if(node.getData().compareTo(cur.getData()) < 0){
-					if(cur.getLeftChild() != null){
-						cur = cur.getLeftChild(); 
-					} 
-					else{
-						node.setParent(cur);
-						cur.setLeftChild(node);
-					}
+			Node<E> cur = this.root;
+			while(cur.getData() != null){
+				if(node.getData().compareTo(cur.getData()) < 0 ){
+					cur = cur.getLeftChild(); 
 				}
 				else{
-					if(cur.getRightChild() != null){
-						cur = cur.getRightChild();
-					}
-					else{
-						node.setParent(cur);
-						cur.setRightChild(node);
-					}
+					cur = cur.getRightChild(); 
 				}
 			}
 			
-			// If duplicate return out of function
-			if(node.getData().compareTo(cur.getData()) == 0){
-				return; 
+			node.setParent(cur.getParent());
+			if(isLeft(cur)){
+				cur.getParent().setLeftChild(node);
+			}
+			else{
+				cur.getParent().setRightChild(node);
 			}
 		}
-		
+		fixInsert(node); 
     }
 
     public Node<E> search(E data){
@@ -55,7 +52,7 @@ public class RBT<E extends Comparable<E>> {
     	Node<E> node = new Node<E>(data); 
     	Node<E> cur = this.root;
     	
-    	while(cur != null && node.getData().compareTo(cur.getData())!= 0){
+    	while(cur.getData() != null && node.getData().compareTo(cur.getData())!= 0){
     		if(node.getData().compareTo(cur.getData()) < 0){
     			cur = cur.getLeftChild(); 
     		}
@@ -63,20 +60,103 @@ public class RBT<E extends Comparable<E>> {
     			cur = cur.getRightChild(); 
     		}
     	}
+    	
+    	if(cur.getData() == null){
+    		return null; 
+    	}
+    	
     	return cur; 
         // Note: No need to worry about duplicate values added to the tree
     }
 
     public void delete(E data){
     	// Preform a regular delete
-    	// Check to make sure the tree remains an RBT tree
+    	Node<E> node = search(data); 
+    	Node<E> nil = new Node<E>(null); 
+    	nil.setColor('b');
+    	nil.setParent(node);
+    	
+    	if(node == null){
+    		return; 
+    	}
+    	
+    	// node has no children
+    	if(node.getLeftChild().getData() == null && node.getRightChild().getData() == null){
+    		if(node.getParent() == null){
+    			this.root = null; 
+    		}
+    		else if(isLeft(node)){
+    			node.getParent().setLeftChild(nil);
+    		}
+    		else{
+    			node.getParent().setRightChild(nil);
+    		}
+    	}
+    	
+    	//node has left child
+    	else if(node.getLeftChild().getData() != null && node.getRightChild().getData() == null){
+    		if(node.getParent() == null){
+    			this.root = node.getLeftChild(); 
+    		}
+    		else if(isLeft(node)){
+    			node.getParent().setLeftChild(node.getLeftChild());
+    			node.getLeftChild().setParent(node.getParent());
+    		}
+    		else{
+    			node.getParent().setRightChild(node.getLeftChild());
+    			node.getLeftChild().setParent(node.getParent()); 
+    		}
+    	}
+    	
+    	// node has right child
+    	else if(node.getLeftChild().getData() == null && node.getRightChild().getData() != null){
+    		if(node.getParent() == null){
+    			this.root = node.getRightChild();  
+    		}
+    		else if(isLeft(node)){
+    			node.getParent().setLeftChild(node.getRightChild());
+    			node.getRightChild().setParent(node.getParent());
+    		}
+    		else{
+    			node.getParent().setRightChild(node.getRightChild());
+    			node.getRightChild().setParent(node.getParent());
+    		}
+    	}
+    	
+    	else{
+    		Node<E> suc = findSuc(node); 
+    		delete(suc.getData()); 
+    		
+    		if(node.getParent() == null){
+    			suc.setLeftChild(node.getLeftChild());
+    			suc.setRightChild(node.getRightChild());
+    			this.root = suc; 
+    		}
+    		else if (isLeft(node)){
+    			suc.setLeftChild(node.getLeftChild());
+    			suc.setRightChild(node.getRightChild());
+    			node.getParent().setLeftChild(suc);
+    		}
+    		else{
+    			suc.setLeftChild(node.getLeftChild());
+    			suc.setRightChild(node.getRightChild());
+    			node.getParent().setRightChild(suc);
+    		}
+    	}
+    // Check to make sure the tree remains an RBT tree
     }
-
+    
+    
     public void traverse(String order, Node<E> top) {
         // Preform a preorder traversal of the tree
-    	if(top != null){
+    	if(top.getData() != null){
     		if(order == "preorder"){
-    			System.out.printf("%d ", top.getData()); 
+    			if(top.getColor() == 'r'){
+    				System.out.printf("%d:R ", top.getData());
+    			}
+    			else{
+    				System.out.printf("%d:b ", top.getData()); 
+    			}
     			traverse("preorder", top.getLeftChild());
     			traverse("preorder", top.getRightChild()); 
     		}
@@ -84,7 +164,7 @@ public class RBT<E extends Comparable<E>> {
     }
 
 
-    public void rightRotate(Node<E> y){
+    public void leftRotate(Node<E> y){
     	
     	Node<E> x = y.getParent(); 
     	Node<E> t1 = x.getLeftChild();
@@ -97,14 +177,12 @@ public class RBT<E extends Comparable<E>> {
     	rotx.setParent(roty);
     	rotx.setLeftChild(t1);
     	rotx.setRightChild(t2);
-    	rotx.setColor(x.getColor());
     	t1.setParent(rotx);
     	t2.setParent(rotx);
     	
     	roty.setParent(x.getParent());
     	roty.setLeftChild(rotx);
     	roty.setRightChild(t3);
-    	roty.setColor(y.getColor());
     	t3.setParent(roty);
     	
     	if(isRight(x)){
@@ -125,7 +203,7 @@ public class RBT<E extends Comparable<E>> {
 		*/
     }
 
-    public void leftRotate(Node<E> x){
+    public void rightRotate(Node<E> x){
     	
     	Node<E> y = x.getParent();
     	Node<E> t1 = x.getLeftChild(); 
@@ -138,14 +216,12 @@ public class RBT<E extends Comparable<E>> {
     	roty.setParent(rotx);
     	roty.setLeftChild(t2);
     	roty.setRightChild(t3);
-    	roty.setColor(y.getColor());
     	t2.setParent(roty);
     	t3.setParent(roty);
     	
     	rotx.setParent(y.getParent());
     	rotx.setLeftChild(t1);
     	rotx.setRightChild(roty);
-    	rotx.setColor(x.getColor());
     	t1.setParent(rotx);
     	
     	if(isRight(y)){
@@ -183,9 +259,31 @@ public class RBT<E extends Comparable<E>> {
     	return false; 
     }
     
-    private Node<E> getUncle(Node<E> n){
-    	return null; 
+    private Node<E> findSuc(Node<E> node){
+    	Node<E> suc = node.getRightChild(); 
+    	while(suc.getLeftChild().getData() != null){
+    		suc = suc.getLeftChild(); 
+    	}
+    	return suc; 
     }
+    
+    
+    private Node<E> getUncle(Node<E> n){
+    	if(isRight(n.getParent())){
+    		return n.getParent().getParent().getLeftChild();
+    	}
+    	else if (isLeft(n.getParent())){
+    		return n.getParent().getParent().getRightChild(); 
+    	}
+    	else{
+    		return null; 
+    	}
+    }
+    
+    private Node<E> getGrandParent(Node<E> node){
+    	return node.getParent().getParent(); 
+    }
+    
     
     private Node getSibling(Node<E> n){
     	if(isRight(n)){
@@ -197,6 +295,60 @@ public class RBT<E extends Comparable<E>> {
     	else{
     		return null; 
     	}
+    }
+    
+    private void fixInsert(Node<E> node){
+    	//root case
+    	if(node == this.root){
+    		node.setColor('b');
+    	}
+    	else{
+    		if(node.getParent().getColor() == 'b'){
+    			return; 
+    		}
+    		else{
+    			Node<E> uncle = getUncle(node);
+    			Node<E> grandParent = getGrandParent(node); 
+    			if(uncle.getColor() == 'r'){
+    				node.getParent().setColor('b');
+    				uncle.setColor('b');
+    				grandParent.setColor('r');
+    				fixInsert(grandParent); 
+    			}
+    			else{
+    				// parent is left child 
+    				if(isLeft(node.getParent())){
+    					if(isRight(node)){
+    						leftRotate(node);
+    						rightRotate(node);
+    						node.setColor('b');
+    						node.getRightChild().setColor('r');
+    					}
+    					else{
+    						rightRotate(node.getParent());
+    						node.getParent().setColor('b');
+    						node.getParent().getRightChild().setColor('r');
+    					}
+    				}
+    				else{
+    					if(isLeft(node)){
+    						rightRotate(node);
+    						leftRotate(node); 
+    						node.setColor('b');
+    						node.getLeftChild().setColor('r');
+    					}
+    					else{
+    						leftRotate(node.getParent());
+    						node.getParent().setColor('b');
+    						node.getParent().getLeftChild().setColor('r');
+    					}
+    				}
+    			}
+    		}
+    	}
+    	
+    	
+    	
     }
     // HINT: You may want to create extra methods such as fixDelete or fixInsert
 }
