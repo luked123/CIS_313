@@ -35,8 +35,9 @@ public class lab4 {
                     System.out.println();
                     break;
                 case "exit" :
-                    // TODO:
-                    // Exit correctly
+                    System.out.println("Successful Exit");
+                    sc.close();
+                    System.exit(0);
                     break;
                 case "test" :
                 	// TODO:
