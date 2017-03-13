@@ -44,7 +44,6 @@ public class Test {
 	    				break;		
 	    		}
 	    	}
-	    	
 	    	scan.close();
 	    }
 }
